@@ -7,6 +7,17 @@
     <title><%= title %></title>
   </head>
   <body>
-    This is EJS Views Home
+    <h1>This is Practice</h1>
+    <ul>
+      <% for(var i=0; i< 10; i++){ %>
+      <li><%= i %></li>
+      <% } %>
+    </ul>
+
+    <% if(true){ %>
+    <h1>True</h1>
+    <% } else{ %>
+    <h1>False</h1>
+    <% } %>
   </body>
 </html>

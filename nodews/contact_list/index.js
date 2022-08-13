@@ -11,7 +11,15 @@ app.get("/", function (req, res) {
   //   console.log(req);
   //   console.log(__dirname); // Prints current inde.js directory name
   // res.send("<h1>Home Page</h1>");
-  return res.render("home"); // The file home is inside views folder
+  return res.render("home", {
+    title: "it's home",
+  }); // The file home is inside views folder
+});
+
+app.get("/practice", function (req, res) {
+  return res.render("practice", {
+    title: "it's practice",
+  });
 });
 
 app.listen(port, function (err) {
