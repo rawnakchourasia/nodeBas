@@ -1,0 +1,48 @@
+body {
+  margin: 0;
+}
+#page-heading {
+  text-align: center;
+  margin-top: 25px;
+  color: grey;
+}
+#listsdiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#ullists {
+  /* border: 1px solid black; */
+  margin: 0;
+  padding: 0px;
+  width: 250px;
+}
+#actlists {
+  background: skyblue;
+  border: 1px solid skyblue;
+  margin: 2px;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#actlists:hover {
+  background: rgb(203, 239, 254);
+}
+.paralist {
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+.formclass {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.formclass input {
+  margin: 5px;
+  /* border-top: none; */
+}

@@ -8,20 +8,21 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use(express.urlencoded());
+app.use(express.static("assets"));
 
 // middleware 1
-app.use(function (req, res, next) {
-  req.myName = "raw";
-  // console.log("midd 1");
-  next();
-});
+// app.use(function (req, res, next) {
+//   req.myName = "raw";
+//   // console.log("midd 1");
+//   next();
+// });
 
-// middleware 2
-app.use(function (req, res, next) {
-  console.log(req.myName);
-  // console.log("midd 2");
-  next();
-});
+// // middleware 2
+// app.use(function (req, res, next) {
+//   console.log(req.myName);
+//   // console.log("midd 2");
+//   next();
+// });
 
 var contact_list = [
   {
@@ -54,7 +55,7 @@ app.get("/practice", function (req, res) {
 });
 
 app.get("/contacts", function (req, res) {
-  console.log(req.myName);
+  // console.log(req.myName);
   return res.render("contacts", {
     title: "contacts",
     contactList: contact_list,
@@ -69,6 +70,20 @@ app.post("/create-contact", function (req, res) {
   // });
   contact_list.push(req.body);
   // return res.redirect("/contacts");
+  return res.redirect("back");
+});
+
+app.get("/delete-contact/", function (req, res) {
+  console.log(req.query);
+  let phone = req.query.phone;
+
+  let contactIndex = contact_list.findIndex(
+    (contact) => contact.phone == phone
+  );
+  if (contactIndex != -1) {
+    contact_list.splice(contactIndex, 1);
+  }
+
   return res.redirect("back");
 });
 
