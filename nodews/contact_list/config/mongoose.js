@@ -16,8 +16,6 @@ db.once("open", function () {
 });
 
 /*
-// getting-started.js
-const mongoose = require('mongoose');
 
 main().catch(err => console.log(err));
 

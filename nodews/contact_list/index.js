@@ -1,8 +1,10 @@
+const { REFUSED } = require("dns");
 const express = require("express");
 const path = require("path");
 const port = 8000;
 
 const db = require("./config/mongoose");
+const Contact = require("./models/contact");
 
 const app = express();
 
@@ -26,6 +28,7 @@ app.use(express.static("assets"));
 //   next();
 // });
 
+/*
 var contact_list = [
   {
     name: "Rawnak",
@@ -40,6 +43,7 @@ var contact_list = [
     phone: 8346355433,
   },
 ];
+*/
 
 app.get("/", function (req, res) {
   //   console.log(req);
@@ -58,9 +62,16 @@ app.get("/practice", function (req, res) {
 
 app.get("/contacts", function (req, res) {
   // console.log(req.myName);
-  return res.render("contacts", {
-    title: "contacts",
-    contactList: contact_list,
+  Contact.find({}, function (err, contacts) {
+    if (err) {
+      console.log("Error in fetching contacts from DB");
+      return;
+    }
+
+    return res.render("contacts", {
+      title: "contacts",
+      contactList: contacts,
+    });
   });
 });
 
@@ -70,23 +81,49 @@ app.post("/create-contact", function (req, res) {
   //   name: req.body.name,
   //   phone: req.body.phone,
   // });
-  contact_list.push(req.body);
+
+  // contact_list.push(req.body);
+
+  Contact.create(
+    {
+      name: req.body.name,
+      phone: req.body.phone,
+    },
+    function (err, newContact) {
+      if (err) {
+        console.log("Error in creating a contact!");
+        return;
+      }
+      console.log("* New Contact Created *", newContact);
+      return res.redirect("back");
+    }
+  );
+
   // return res.redirect("/contacts");
-  return res.redirect("back");
 });
 
 app.get("/delete-contact/", function (req, res) {
   console.log(req.query);
-  let phone = req.query.phone;
+  // Get the id from the query in the URL
+  let id = req.query.id;
 
+  //Find the contact in the database using id and delete it
+  Contact.findByIdAndDelete(id, function (err) {
+    if (err) {
+      console.log("Error in deleting an object from DB");
+      return;
+    }
+    return res.redirect("back");
+  });
+
+  /*
   let contactIndex = contact_list.findIndex(
     (contact) => contact.phone == phone
   );
   if (contactIndex != -1) {
     contact_list.splice(contactIndex, 1);
   }
-
-  return res.redirect("back");
+  */
 });
 
 app.listen(port, function (err) {
