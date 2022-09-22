@@ -2,6 +2,8 @@ const express = require("express");
 const path = require("path");
 const port = 8000;
 
+const db = require("./config/mongoose");
+
 const app = express();
 
 app.set("view engine", "ejs");
@@ -41,7 +43,7 @@ var contact_list = [
 
 app.get("/", function (req, res) {
   //   console.log(req);
-  //   console.log(__dirname); // Prints current inde.js directory name
+  //   console.log(__dirname); // Prints current index.js directory name
   // res.send("<h1>Home Page</h1>");
   return res.render("home", {
     title: "it's home",
